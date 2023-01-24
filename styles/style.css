@@ -1,0 +1,144 @@
+@font-face {
+    font-family: Inter;
+    src: url(../Assets/Fonts/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: Inter-Light;
+    src: url(../Assets/Fonts/Inter-Light.ttf);
+}
+
+.btn-dark{
+    background-color: #0A1128 !important;
+}
+
+.input-group-text{
+    background-color: rgb(30, 30, 30) !important; 
+    color: white !important;
+}
+
+.rainBackground{
+background-image: url(/Assets/rainyDay.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+background-position: 100%;
+width: 100vw;
+}
+
+.clearBackground{
+background-image: url(/Assets/sunnyDay.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+background-position: 100%;
+width: 100vw;
+}
+
+.snowBackground{
+background-image: url(/Assets/snow.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+background-position: 100%;
+width: 100vw;
+}
+
+.cloudBackground{
+background-image: url(/Assets/cloudy.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+background-position: 100%;
+width: 100vw;
+}
+
+.down{
+    margin-top: 92.2vh;
+}
+
+.currentWeather{
+    margin-top: 60vh;
+    color: white;
+    margin-left: 4vw;
+    /* -webkit-text-stroke: 0.5px rgb(55, 55, 55); */
+}
+
+.currentTemp{
+    color: white;
+    font-size: 150px;
+    margin-left: 4vw;
+    font-family: inter;
+}
+
+.favBtn{
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 350px;
+    height: 40px;
+    width: 395px;
+    border-radius: 20%;
+}
+
+.cityName{
+    position: absolute;
+    margin-top: -170px;
+    margin-left: 350px;
+    font-size: 55px;
+    color: white;
+    font-family: Inter;
+}
+
+.currentWeatherCondition{
+    position: absolute;
+    margin-top: -90px;
+    margin-left: 435px;
+    color: white;
+    font-family: Inter;
+}
+
+.currentWeatherIcon{
+    position: absolute;
+    margin-top: -100px;
+    margin-left: 355px;
+    width: 70px;
+}
+
+.currentTime{
+    position: absolute;
+    margin-top: -90px;
+    margin-left: 640px;
+    color: white;
+    font-family: Inter;
+}
+
+.currentDate{
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 523px;
+    color: white;
+    font-family: Inter;
+}
+
+.whiteBox{
+    background-color: rgba(245, 245, 245, 0.507);
+}
+
+.blackground{
+    color: black;
+}
+
+.enterBox{
+    height: 50px;
+}
+
+.favoriteBox{
+    width: 100px;
+    height: 50px;
+}
+
+.favoriteFont{
+    font-size: 23px;
+    font-family: Inter;
+    margin-left: -2px;
+}
+
+.cityText{
+
+}

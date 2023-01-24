@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/2c0abac5-5c35-452a-818f-e65ffa1755bb/AppServices/subscriptions/2c0abac5-5c35-452a-818f-e65ffa1755bb/resourceGroups/ParkerGWeatherAPI_group/providers/Microsoft.Web/sites/ParkerGWeatherAPI",
+    "appService.deploySubpath": "."
+}
