@@ -1,9 +1,10 @@
 <!-- 
 Griffin Parker
-January 24th, 2023
-Weather Sprint-Day 2
-I used two APIs to find the weather for a city that can be searched by an input
-The current weather will fill the forms, but the next 5 day forecast is only console logged
+January 25th, 2023
+Weather Sprint-Day 3
+I worked mostly on the javascript side today. I first added the five day forecast on the frontend, and then wrote out the
+javascript I would need to populate the forecast. I added the current time, date, and geolocation. I created two for loops held inside a while loop. The first for loop got the high and low 
+temperature for the next day, while the second for loop gets the weather info for the four days after.
  -->
 
 <!-- 
@@ -43,6 +44,23 @@ Thanks Guys!
             <input type="text" id="citySearch" class="form-control" placeholder="Search City" aria-label="Example text with button addon" aria-describedby="button-addon1">
             <button class="btn btn-primary" type="button" id="searchButton">Button</button>
           </div>
+          <h2 class="forecast">5 Day Forecast</h2>
+          <h5 class="forecastDay">Monday</h5>
+          <h5 class="forecastDay2">Tuesday</h5>
+          <h5 class="forecastDay3">Wednesday</h5>
+          <h5 class="forecastDay4">Thursday</h5>
+          <h5 class="forecastDay5">Friday</h5>
+          <img src="/Assets/rainCloudIcon.png" alt="" id="forecastWeatherIcon1" class="forecastWeatherIcon">
+          <img src="/Assets/cloudIcon.png" alt="" id="forecastWeatherIcon2" class="forecastWeatherIcon2">
+          <img src="/Assets/cloudIcon.png" alt="" id="forecastWeatherIcon3" class="forecastWeatherIcon2">
+          <img src="/Assets/cloudIcon.png" alt="" id="forecastWeatherIcon4" class="forecastWeatherIcon2">
+          <img src="/Assets/rainCloudIcon.png" alt="" id="forecastWeatherIcon5" class="forecastWeatherIcon2">
+          <h5 class="forecastTemp1" id="forecastTemp1">H: 50 L: 39</h5>
+          <h5 class="forecastTemp2" id="forecastTemp2">H: 50 L: 39</h5>
+          <h5 class="forecastTemp3" id="forecastTemp3">H: 50 L: 39</h5>
+          <h5 class="forecastTemp4" id="forecastTemp4">H: 50 L: 39</h5>
+          <h5 class="forecastTemp5" id="forecastTemp5">H: 50 L: 39</h5>
+          <h1 class="todaysForecast">Today's Forecast</h1>
           <h1 class="down">Text</h1>
         </div>
       </div>
