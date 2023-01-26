@@ -38,6 +38,7 @@ let lat = 0;
 let city = "";
 let search = 0;
 let meridian = "AM";
+let twelveHour = 0;
 let month = "";
 let dateToday = new Date().getDate();
 let monthToday = new Date().getMonth();
@@ -68,6 +69,7 @@ minutesToday = new Date().getMinutes();
 
 if (hoursToday > 12)
 {
+    twelveHour = hoursToday;
     hoursToday = (hoursToday % 12);
     meridian = "PM";
 }
@@ -99,7 +101,11 @@ switch (monthToday){
     break;
 }
 
-currentTime.innerText = hoursToday + ":" + minutesToday + meridian;
+if (minutesToday < 10){
+    currentTime.innerText = hoursToday + ":0" + minutesToday + " " + meridian;
+}else{
+    currentTime.innerText = hoursToday + ":" + minutesToday + " " + meridian;
+}
 currentDate.innerText = month + " " + dateToday + ", " + yearToday;
 
 }
@@ -146,6 +152,7 @@ function CityNameAPI(city){
 function CityCoordAPI(lat, lon){
     search = 1;
     cityCoordUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=365f138cea066f516791f6d7897e34d4&units=imperial";
+    fiveDays = 0;
     urlCall(cityCoordUrl);
 }
 
@@ -242,8 +249,7 @@ function urlCall(url) {
                 }
                 fiveDays++;
             }
-
-
+                ForecastIconSelector();
             }
                 
             
@@ -254,7 +260,16 @@ function urlCall(url) {
             break;
             case "Clear":
                 currentWeatherIcon.src = "./Assets/sunIcon.png";
-                background.className = "container-fluid clearBackground";
+                if ((twelveHour >= 20) && (twelveHour < 6)){
+                    background.className = "container-fluid clearNightBackground";
+                    currentWeatherIcon.src = "./Assets/clearMoonIcon.png";
+                }
+                if ((twelveHour >= 6) && (twelveHour < 1)){
+                background.className = "container-fluid clearEarlyBackground";
+                }
+                if ((twelveHour >= 12) && (twelveHour < 20)){
+                background.className = "container-fluid clearLateBackground";
+                }
             break;
             case "Snow":
                 currentWeatherIcon.src = "./Assets/snowCloudIcon.png";
@@ -276,4 +291,107 @@ function urlCall(url) {
 
         }
     )
+}
+
+function ForecastIconSelector(){
+    fiveDays = 1;
+    while(fiveDays != 6)
+    {
+
+        var forecastIcon = {forecastCondition1, forecastCondition2, forecastCondition3, forecastCondition4, forecastCondition5};
+
+        forecastIcon[fiveDays - 1] = weather.list[8*fiveDays/2].weather[0].main;
+        console.log(forecastIcon[fiveDays - 1]);
+
+        ForecastIcons(forecastIcon[fiveDays - 1], fiveDays)
+
+        fiveDays++;
+    }
+
+}
+
+function ForecastIcons(forecastCondition, fiveDays){
+
+    //var iconArray = {weatherForecastIcon1, weatherForecastIcon2, weatherForecastIcon3, weatherForecastIcon4, weatherForecastIcon5};
+
+    if (fiveDays == 1){
+
+    switch(forecastCondition){
+        case "Clouds": weatherForecastIcon1.src = "./Assets/cloudIcon.png";
+        break;
+        case "Clear": weatherForecastIcon1.src = "./Assets/sunIcon.png";
+        break;
+        case "Snow": weatherForecastIcon1.src = "./Assets/snowCloudIcon.png";
+        break;
+        case "Rain": weatherForecastIcon1.src = "./Assets/rainCloudIcon.png";
+        break;
+        case "Haze": weatherForecastIcon1.src = "./Assets/fogIcon.png";
+        break;
+        }
+    }
+
+    if (fiveDays == 2){
+
+    switch(forecastCondition){
+        case "Clouds": weatherForecastIcon2.src = "./Assets/cloudIcon.png";
+        break;
+        case "Clear": weatherForecastIcon2.src = "./Assets/sunIcon.png";
+        break;
+        case "Snow": weatherForecastIcon2.src = "./Assets/snowCloudIcon.png";
+        break;
+        case "Rain": weatherForecastIcon2.src = "./Assets/rainCloudIcon.png";
+        break;
+        case "Haze": weatherForecastIcon2.src = "./Assets/fogIcon.png";
+        break;
+        }
+    }
+
+    if (fiveDays == 3){
+
+    switch(forecastCondition){
+        case "Clouds": weatherForecastIcon3.src = "./Assets/cloudIcon.png";
+        break;
+        case "Clear": weatherForecastIcon3.src = "./Assets/sunIcon.png";
+        break;
+        case "Snow": weatherForecastIcon3.src = "./Assets/snowCloudIcon.png";
+        break;
+        case "Rain": weatherForecastIcon3.src = "./Assets/rainCloudIcon.png";
+        break;
+        case "Haze": weatherForecastIcon3.src = "./Assets/fogIcon.png";
+        break;
+        }
+    }
+
+    if (fiveDays == 4){
+
+    switch(forecastCondition){
+        case "Clouds": weatherForecastIcon4.src = "./Assets/cloudIcon.png";
+        break;
+        case "Clear": weatherForecastIcon4.src = "./Assets/sunIcon.png";
+        break;
+        case "Snow": weatherForecastIcon4.src = "./Assets/snowCloudIcon.png";
+        break;
+        case "Rain": weatherForecastIcon4.src = "./Assets/rainCloudIcon.png";
+        break;
+        case "Haze": weatherForecastIcon4.src = "./Assets/fogIcon.png";
+        break;
+        }
+    }
+
+    if (fiveDays == 5){
+
+    switch(forecastCondition){
+        case "Clouds": weatherForecastIcon5.src = "./Assets/cloudIcon.png";
+        break;
+        case "Clear": weatherForecastIcon5.src = "./Assets/sunIcon.png";
+        break;
+        case "Snow": weatherForecastIcon5.src = "./Assets/snowCloudIcon.png";
+        break;
+        case "Rain": weatherForecastIcon5.src = "./Assets/rainCloudIcon.png";
+        break;
+        case "Haze": weatherForecastIcon5.src = "./Assets/fogIcon.png";
+        break;
+        }
+    }
+
 }

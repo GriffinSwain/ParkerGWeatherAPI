@@ -9,7 +9,7 @@
 }
 
 .btn-dark{
-    background-color: #0A1128 !important;
+    background-color: #f1f4ff !important;
 }
 
 .input-group-text{
@@ -25,11 +25,27 @@ background-position: 100%;
 width: 100vw;
 }
 
-.clearBackground{
-background-image: url(/Assets/sunnyDay.jpg);
+.clearEarlyBackground{
+background-image: url(/Assets/sunnyWeatherEarly.jpg);
 background-repeat: no-repeat;
-background-size: 100%;
-background-position: 100%;
+background-size: cover;
+background-position-y: 100%;
+width: 100vw;
+}
+
+.clearLateBackground{
+background-image: url(/Assets/sunnyWeatherLater.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-position-y: 100%;
+width: 100vw;
+}
+
+.clearNightBackground{
+background-image: url(/Assets/ClearNightSky.png);
+background-repeat: no-repeat;
+background-size: cover;
+background-position-y: 100%;
 width: 100vw;
 }
 
@@ -137,6 +153,7 @@ width: 100vw;
     font-size: 23px;
     font-family: Inter;
     margin-left: -2px;
+    color: black;
 }
 
 .forecast{
