@@ -8,6 +8,11 @@ let currentTime = document.getElementById("currentTime");
 let currentDate = document.getElementById("currentDate");
 let citySearch = document.getElementById("citySearch");
 let background = document.getElementById("background");
+let forecastDay1 = document.getElementById("forecastDay1");
+let forecastDay2 = document.getElementById("forecastDay2");
+let forecastDay3 = document.getElementById("forecastDay3");
+let forecastDay4 = document.getElementById("forecastDay4");
+let forecastDay5 = document.getElementById("forecastDay5");
 let weatherForecastIcon1 = document.getElementById("forecastWeatherIcon1");
 let weatherForecastIcon2 = document.getElementById("forecastWeatherIcon2");
 let weatherForecastIcon3 = document.getElementById("forecastWeatherIcon3");
@@ -40,12 +45,15 @@ let search = 0;
 let meridian = "AM";
 let twelveHour = 0;
 let month = "";
+let weekDay = new Date().getDay();
 let dateToday = new Date().getDate();
 let monthToday = new Date().getMonth();
 let yearToday = new Date().getYear() + 1900;
 let hoursToday = new Date().getHours();
 let minutesToday = new Date().getMinutes();
 
+
+console.log(weekDay);
 console.log(dateToday);
 console.log(monthToday);
 console.log(yearToday);
@@ -56,6 +64,7 @@ GetTime();
 
 function GetTime(){
 
+weekDay = new Date().getDay();
 dateToday = new Date().getDate();
 monthToday = new Date().getMonth();
 yearToday = new Date().getYear() + 1900;
@@ -66,10 +75,10 @@ minutesToday = new Date().getMinutes();
 // {
 //     minutesToday
 // }
+twelveHour = hoursToday;
 
 if (hoursToday > 12)
 {
-    twelveHour = hoursToday;
     hoursToday = (hoursToday % 12);
     meridian = "PM";
 }
@@ -99,6 +108,63 @@ switch (monthToday){
     break;
     case 11: month = "December";
     break;
+}
+
+switch(weekDay){
+    case 0:
+        forecastDay1.innerText = "Monday";
+        forecastDay2.innerText = "Tuesday";
+        forecastDay3.innerText = "Wednesday";
+        forecastDay4.innerText = "Thursday";
+        forecastDay5.innerText = "Friday";
+    break;
+    case 1:
+        forecastDay1.innerText = "Tuesday";
+        forecastDay2.innerText = "Wednesday";
+        forecastDay3.innerText = "Thursday";
+        forecastDay4.innerText = "Friday";
+        forecastDay5.innerText = "Saturday";
+    break;
+    case 2:
+        forecastDay1.innerText = "Wednesday";
+        forecastDay2.innerText = "Thursday";
+        forecastDay3.innerText = "Friday";
+        forecastDay4.innerText = "Saturday";
+        forecastDay5.innerText = "Sunday";
+    break;
+    case 3:
+        forecastDay1.innerText = "Thursday";
+        forecastDay2.innerText = "Friday";
+        forecastDay3.innerText = "Saturday";
+        forecastDay4.innerText = "Sunday";
+        forecastDay5.innerText = "Monday";
+    break;
+    case 4:
+        forecastDay1.innerText = "Friday";
+        forecastDay2.innerText = "Saturday";
+        forecastDay3.innerText = "Sunday";
+        forecastDay4.innerText = "Monday";
+        forecastDay5.innerText = "Tuesday";
+    break;
+    case 5:
+        forecastDay1.innerText = "Saturday";
+        forecastDay2.innerText = "Sunday";
+        forecastDay3.innerText = "Monday";
+        forecastDay4.innerText = "Tuesday";
+        forecastDay5.innerText = "Wednesday";
+    break;
+    case 6:
+        forecastDay1.innerText = "Sunday";
+        forecastDay2.innerText = "Monday";
+        forecastDay3.innerText = "Tuesday";
+        forecastDay4.innerText = "Wednesday";
+        forecastDay5.innerText = "Thursday";
+    break;
+
+
+
+
+
 }
 
 if (minutesToday < 10){
@@ -136,6 +202,13 @@ const options = {
 navigator.geolocation.getCurrentPosition(success, error, options);
 
 
+
+citySearch.addEventListener("keypress", function(e){
+    if (e.key == "Enter"){
+        city = citySearch.value;
+        CityNameAPI(city);  
+    }
+})
 
 searchButton.addEventListener("click",function(){
     city = citySearch.value;
@@ -175,12 +248,15 @@ function urlCall(url) {
                 currentWeatherCondition.innerHTML = weather.list[0].weather[0].main;
                 weatherCondition = weather.list[0].weather[0].main;
                 cityName.innerHTML = weather.city.name;
+
+                search = 1;
                 // lat = weather.coord.lat;
                 // lon = weather.coord.lon;
             }
 
             if (search == 0){
 
+                console.log(weather);
                 weatherCondition = weather.weather[0].main;
                 currentWeatherCondition.innerHTML = weather.weather[0].main;
                 cityName.innerHTML = weather.name;
@@ -204,23 +280,9 @@ function urlCall(url) {
                 forecastLow = 100;
                 forecastHigh = 0;
 
-                // This for loop only works the first time the while loop runs
-                // It checks the first 8 arrays of the forecast API for the high and low temp for the first day 
-                if (fiveDays == 0){
-                    for(let i = 0; i <= ((fiveDays+1)*8)-1; i++){
-                    
-                        if (forecastHigh < Math.floor(weather.list[i].main.temp_max))
-                        {
-                            forecastHigh = Math.floor(weather.list[i].main.temp_min);
-                        }
-                        if (forecastLow > Math.floor(weather.list[i].main.temp_min))
-                        {
-                            forecastLow = Math.floor(weather.list[i].main.temp_min);
-                        }
-                    }
-                    // This next for loop runs the next four runs of the while loop
+            
+                    // This for loop runs for 5 runs of the while loop
                     // It checks every 8 arrays that make up each day and records the highest and lowest temps
-                }else{
 
                     for(let i = (((fiveDays)*8)); i <= ((fiveDays+1)*8)-1; i++){
                         
@@ -233,7 +295,6 @@ function urlCall(url) {
                             forecastLow = Math.floor(weather.list[i].main.temp_min);
                         }
                     }
-                }
 
                 switch(fiveDays){
                     case 0: forecastTemp1.innerText = "H:" + forecastHigh + "° L:" +forecastLow + "°";
@@ -259,16 +320,23 @@ function urlCall(url) {
                 background.className = "container-fluid cloudBackground";
             break;
             case "Clear":
-                currentWeatherIcon.src = "./Assets/sunIcon.png";
-                if ((twelveHour >= 20) && (twelveHour < 6)){
+                background.className = "container-fluid clearNightBackground";
+                currentWeatherIcon.src = "./Assets/clearMoonIcon.png";
+                console.log(twelveHour);
+                if ((twelveHour >= 7))
+                {
+                    currentWeatherIcon.src = "./Assets/sunIcon.png";
+                    background.className = "container-fluid clearEarlyBackground";
+                }
+                if (twelveHour >= 13)
+                {
+                    currentWeatherIcon.src = "./Assets/sunIcon.png";
+                    background.className = "container-fluid clearLateBackground";
+                }
+                if (twelveHour >= 18)
+                {
                     background.className = "container-fluid clearNightBackground";
                     currentWeatherIcon.src = "./Assets/clearMoonIcon.png";
-                }
-                if ((twelveHour >= 6) && (twelveHour < 1)){
-                background.className = "container-fluid clearEarlyBackground";
-                }
-                if ((twelveHour >= 12) && (twelveHour < 20)){
-                background.className = "container-fluid clearLateBackground";
                 }
             break;
             case "Snow":

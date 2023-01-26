@@ -13,6 +13,7 @@ I like switching prototypes
 Thanks Guys!
 
 Have information detailing when sunrise/set is & change background based on when the sun rises and sets
+have program use timezones to determine what the time & date is at the inputted city
  -->
 
 
@@ -43,15 +44,15 @@ Have information detailing when sunrise/set is & change background based on when
         </div>
         <div class="col-5 whiteBox down">
           <div class="input-group mb-3">
-            <input type="text" id="citySearch" class="form-control" placeholder="Search City" aria-label="Example text with button addon" aria-describedby="button-addon1">
-            <button class="btn btn-primary" type="button" id="searchButton">Button</button>
+            <input type="text" id="citySearch" class="citySearch" placeholder="search city">
+            <button class="searchButton" type="button" id="searchButton"><img src="/Assets/SearchGlass.png" class="searchIcon"></button>
           </div>
           <h2 class="forecast">5 Day Forecast</h2>
-          <h5 class="forecastDay">Monday</h5>
-          <h5 class="forecastDay2">Tuesday</h5>
-          <h5 class="forecastDay3">Wednesday</h5>
-          <h5 class="forecastDay4">Thursday</h5>
-          <h5 class="forecastDay5">Friday</h5>
+          <u><h5 class="forecastDay" id="forecastDay1">Monday</u></h5>
+          <h5 class="forecastDay2" id="forecastDay2"><u>Tuesday</u></h5>
+          <h5 class="forecastDay3" id="forecastDay3"><u>Wednesday</u></h5>
+          <h5 class="forecastDay4" id="forecastDay4"><u>Thursday</u></h5>
+          <h5 class="forecastDay5" id="forecastDay5"><u>Friday</u></h5>
           <img src="/Assets/rainCloudIcon.png" alt="" id="forecastWeatherIcon1" class="forecastWeatherIcon">
           <img src="/Assets/cloudIcon.png" alt="" id="forecastWeatherIcon2" class="forecastWeatherIcon2">
           <img src="/Assets/cloudIcon.png" alt="" id="forecastWeatherIcon3" class="forecastWeatherIcon2">
@@ -63,6 +64,10 @@ Have information detailing when sunrise/set is & change background based on when
           <h5 class="forecastTemp4" id="forecastTemp4">H: 50 L: 39</h5>
           <h5 class="forecastTemp5" id="forecastTemp5">H: 50 L: 39</h5>
           <h1 class="todaysForecast">Today's Forecast</h1>
+          <h2 class="highToday"><u>High</u></h2>
+          <h2 class="lowToday"><u>Low</u></h2>
+          <h1 class="highTemp" id="highTemp">59°</h1>
+          <h1 class="lowTemp" id="lowTemp">43°</h1>
           <h1 class="down">Text</h1>
         </div>
       </div>

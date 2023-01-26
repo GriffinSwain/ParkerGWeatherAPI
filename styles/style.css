@@ -1,3 +1,7 @@
+::placeholder{
+    color: black;
+}
+
 @font-face {
     font-family: Inter;
     src: url(../Assets/Fonts/Inter-Regular.ttf);
@@ -101,6 +105,60 @@ width: 100vw;
     font-family: Inter;
 }
 
+.citySearch{
+    margin-top: 4vh;
+    margin-left: 20vw;
+    position: absolute;
+    width: 15vw;
+    background-color: rgba(240, 248, 255, 0);
+    color: black;
+    border-color: black;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.searchButton{
+    background-color: rgba(255, 255, 255, 0);
+    width: 100px;
+    border:  0px;
+    margin-top: 4vh;
+    margin-left: 50vw;
+}
+
+.searchIcon{
+    width: 30px;
+    margin-top: -1vh;
+    margin-left: 34.7vw;
+}
+
+.highToday{
+    position: absolute;
+    margin-left: 5.5vw;
+    font-family: inter;
+}
+.lowToday{
+    position: absolute;
+    margin-left: 31vw;
+    font-family: inter;
+}
+
+.highTemp{
+    position: absolute;
+    margin-left: 5.5vw;
+    margin-top: 7vh;
+    font-size: 50px;
+    font-family: inter-light;
+}
+
+.lowTemp{
+    position: absolute;
+    margin-left: 31vw;
+    margin-top: 7vh;
+    font-size: 50px;
+    font-family: inter-light;
+}
+
 .currentWeatherCondition{
     position: absolute;
     margin-top: -90px;
@@ -159,8 +217,8 @@ width: 100vw;
 .forecast{
     font-family: inter;
     font-size: 36px;
-    margin-top: 12.5vh;
-    margin-left: 2vw;
+    margin-top: 8vh;
+    margin-left: 12vw;
 }
 
 .forecastDay{
@@ -180,7 +238,7 @@ width: 100vw;
     font-family: inter;
     font-size: 17px;
     margin-top: -4vh;
-    margin-left: 16vw;
+    margin-left: 16.75vw;
 }
 .forecastDay4{
     font-family: inter;
@@ -192,7 +250,7 @@ width: 100vw;
     font-family: inter;
     font-size: 17px;
     margin-top: -4vh;
-    margin-left: 32vw;
+    margin-left: 31.5vw;
 }
 
 .forecastWeatherIcon{
@@ -238,8 +296,8 @@ width: 100vw;
 }
 
 .todaysForecast{
-    margin-top: 4vh;
-    margin-left: 2vw;
+    margin-top: 5vh;
+    margin-left: 11vw;
     font-family: inter;
     font-size: 36px;
 }
