@@ -1,10 +1,11 @@
 <!-- 
 Griffin Parker
-January 25th, 2023
-Weather Sprint-Day 3
-I worked mostly on the javascript side today. I first added the five day forecast on the frontend, and then wrote out the
-javascript I would need to populate the forecast. I added the current time, date, and geolocation. I created two for loops held inside a while loop. The first for loop got the high and low 
-temperature for the next day, while the second for loop gets the weather info for the four days after.
+January 27th, 2023
+Weather Sprint-Day 4
+I completed the majority of the project that I wanted to get finished. Somethings that I would want to add are 
+Getting the local time from the city that is having it's weather displayed
+Getting the state/country from the location that is being displayed
+Have the favorites list be toggleable on and off
  -->
 
 <!-- 
@@ -32,8 +33,12 @@ have program use timezones to determine what the time & date is at the inputted 
       <div class="row">
       
       <div class="col-7">
+          <h1 class="theWeather">the.weather</h1>
+          <h5 class="favorites">+Favorites</h5>
+          <button class="favoritesButton" type="button" id="favoritesButton"></button>
+          <h1 id="injectHere" class="injectHere">injecthere</h1>
           <h1 class="currentWeather">Currently</h1>
-          <button type="button" class="btn btn-dark favBtn" id="faveButton"> <h4 class="favoriteFont">Add City to Favorites</h4></button>
+          <button type="button" class="btn btn-dark favBtn" id="faveButton"> <h4 class="favoriteFont" id="favoriteText">Add City to Favorites</h4></button>
           <h1 class="currentTemp" id="currentTemp">50°</h1>
           <h1 class="cityName" id="cityName">Santa Rosa, CA</h1>
           <img class="currentWeatherIcon" id="currentWeatherIcon" src="/Assets/rainCloudIcon.png" alt="" >
@@ -42,7 +47,7 @@ have program use timezones to determine what the time & date is at the inputted 
           <h3 class="currentDate" id="currentDate">January 24, 2023</h3>
 
         </div>
-        <div class="col-5 whiteBox down">
+        <div class="col-5 whiteBox">
           <div class="input-group mb-3">
             <input type="text" id="citySearch" class="citySearch" placeholder="search city">
             <button class="searchButton" type="button" id="searchButton"><img src="/Assets/SearchGlass.png" class="searchIcon"></button>
@@ -66,13 +71,13 @@ have program use timezones to determine what the time & date is at the inputted 
           <h1 class="todaysForecast">Today's Forecast</h1>
           <h2 class="highToday"><u>High</u></h2>
           <h2 class="lowToday"><u>Low</u></h2>
-          <h1 class="highTemp" id="highTemp">59°</h1>
-          <h1 class="lowTemp" id="lowTemp">43°</h1>
+          <h1 class="highTemp" id="highTempToday">59°</h1>
+          <h1 class="lowTemp" id="lowTempToday">43°</h1>
           <h1 class="down">Text</h1>
         </div>
       </div>
     </div>
-    <script src="/Scripts/script.js"></script>
+    <script src="/Scripts/script.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   </body>
 </html>

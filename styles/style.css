@@ -70,18 +70,65 @@ width: 100vw;
 }
 
 .down{
-    margin-top: 42.2vh;
+    margin-top: 34vh;
+    color: rgba(0, 0, 255, 0);
+}
+
+.theWeather{
+    position: absolute;
+    font-family: inter-light;
+    -webkit-text-stroke: 0.2px rgb(0, 0, 0);
+    color: rgb(129, 244, 153);
+    margin-top: 3vh;
+    margin-left: 1vw;
+}
+
+.favorites{
+    position: absolute;
+    font-family: inter;
+    margin-top: 5vh;
+    margin-left: 50vw;
+    color: white;
+    pointer-events: none;
+    /* background-color: rgba(0, 0, 0, 0.486); */
+    z-index: 2;
+    padding: 3px;
+}
+
+.injectHere{
+    position: absolute;
+    margin-top: 3vh;
+    color: #f1f4ff00;
+}
+
+.favoritesList{
+/* position: absolute; */
+margin-top: 2vh;
+z-index: 20;
+margin-left: 91.5vh;
+color: rgb(255, 255, 255);
+}
+
+.selectBtn{
+    position: absolute;
+    margin-top: -5.5vh;
+    margin-left: 91vh;
+    width: 222px;
+    height: 35px;
+    z-index: 1;
 }
 
 .currentWeather{
     margin-top: 60vh;
     color: white;
     margin-left: 4vw;
+    -webkit-text-stroke: .5px rgb(0, 0, 0);
     /* -webkit-text-stroke: 0.5px rgb(55, 55, 55); */
 }
 
 .currentTemp{
     color: white;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
     font-size: 150px;
     margin-left: 4vw;
     font-family: inter;
@@ -102,6 +149,7 @@ width: 100vw;
     margin-left: 350px;
     font-size: 55px;
     color: white;
+    -webkit-text-stroke: .5px rgb(0, 0, 0);
     font-family: Inter;
 }
 
@@ -126,6 +174,17 @@ width: 100vw;
     margin-left: 50vw;
 }
 
+.favoritesButton{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.673);
+    width: 110px;
+    height: 40px;
+    border:  0px;
+    margin-top: 4.2vh;
+    margin-left: 50vw;
+    z-index: 1;
+}
+
 .searchIcon{
     width: 30px;
     margin-top: -1vh;
@@ -134,12 +193,14 @@ width: 100vw;
 
 .highToday{
     position: absolute;
-    margin-left: 5.5vw;
+    margin-top: 3vh;
+    margin-left: 8vw;
     font-family: inter;
 }
 .lowToday{
     position: absolute;
-    margin-left: 31vw;
+    margin-top: 3vh;
+    margin-left: 28vw;
     font-family: inter;
 }
 
@@ -147,15 +208,15 @@ width: 100vw;
     position: absolute;
     margin-left: 5.5vw;
     margin-top: 7vh;
-    font-size: 50px;
+    font-size: 120px;
     font-family: inter-light;
 }
 
 .lowTemp{
     position: absolute;
-    margin-left: 31vw;
+    margin-left: 25vw;
     margin-top: 7vh;
-    font-size: 50px;
+    font-size: 120px;
     font-family: inter-light;
 }
 
@@ -163,6 +224,7 @@ width: 100vw;
     position: absolute;
     margin-top: -90px;
     margin-left: 435px;
+    -webkit-text-stroke: .15px rgb(0, 0, 0);
     color: white;
     font-family: Inter;
 }
@@ -179,6 +241,7 @@ width: 100vw;
     margin-top: -90px;
     margin-left: 640px;
     color: white;
+    -webkit-text-stroke: .15px rgb(0, 0, 0);
     font-family: Inter;
 }
 
@@ -187,11 +250,12 @@ width: 100vw;
     margin-top: -50px;
     margin-left: 523px;
     color: white;
+    -webkit-text-stroke: .15px rgb(0, 0, 0);
     font-family: Inter;
 }
 
 .whiteBox{
-    background-color: rgba(245, 245, 245, 0.507);
+    background-color: rgba(245, 245, 245, 0.6);
 }
 
 .blackground{
@@ -224,7 +288,7 @@ width: 100vw;
 .forecastDay{
     font-family: inter;
     font-size: 17px;
-    margin-top: 3vh;
+    margin-top: 7vh;
     margin-left: 2vw;
 }
 
@@ -296,7 +360,7 @@ width: 100vw;
 }
 
 .todaysForecast{
-    margin-top: 5vh;
+    margin-top: 10vh;
     margin-left: 11vw;
     font-family: inter;
     font-size: 36px;

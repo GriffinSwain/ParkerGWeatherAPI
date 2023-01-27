@@ -1,3 +1,6 @@
+import {saveToLocalStorageByName, GetFavorites, RemoveFromFavorites, CheckFavorite} from "./favorite.js";
+import { key } from "./key.js";
+
 let faveButton = document.getElementById("faveButton");
 let searchButton = document.getElementById("searchButton");
 let currentTemp = document.getElementById("currentTemp");
@@ -7,7 +10,12 @@ let currentWeatherCondition = document.getElementById("currentWeatherCondition")
 let currentTime = document.getElementById("currentTime");
 let currentDate = document.getElementById("currentDate");
 let citySearch = document.getElementById("citySearch");
+let favoritesButton = document.getElementById("favoritesButton");
+let favoriteText = document.getElementById("favoriteText");
+let injectHere = document.getElementById("injectHere");
 let background = document.getElementById("background");
+let highTempToday = document.getElementById("highTempToday");
+let lowTempToday = document.getElementById("lowTempToday");
 let forecastDay1 = document.getElementById("forecastDay1");
 let forecastDay2 = document.getElementById("forecastDay2");
 let forecastDay3 = document.getElementById("forecastDay3");
@@ -24,11 +32,15 @@ let forecastTemp3 = document.getElementById("forecastTemp3");
 let forecastTemp4 = document.getElementById("forecastTemp4");
 let forecastTemp5 = document.getElementById("forecastTemp5");
 
+let removal;
+let favorited;
 let cityNameUrl = "";
 let cityCoordUrl = "";
+let startingCityName = "";
 let weather = "";
 let highTemp = 0;
 let lowTemp = 0;
+let favoritesShown = 0;
 let weatherCondition = "";
 let forecastCondition1 = "";
 let forecastCondition2 = "";
@@ -52,13 +64,8 @@ let yearToday = new Date().getYear() + 1900;
 let hoursToday = new Date().getHours();
 let minutesToday = new Date().getMinutes();
 
+favorited = CheckFavorite(city);
 
-console.log(weekDay);
-console.log(dateToday);
-console.log(monthToday);
-console.log(yearToday);
-console.log(hoursToday);
-console.log(minutesToday);
 
 GetTime();
 
@@ -161,10 +168,6 @@ switch(weekDay){
         forecastDay5.innerText = "Thursday";
     break;
 
-
-
-
-
 }
 
 if (minutesToday < 10){
@@ -176,14 +179,17 @@ currentDate.innerText = month + " " + dateToday + ", " + yearToday;
 
 }
 
-function success(position)
+async function success(position)
 {
-    search = -1;
     // currentTime.textContent = getDate();
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    cityCoordUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=365f138cea066f516791f6d7897e34d4&units=imperial";
-    urlCall(cityCoordUrl);
+    
+    search = -1;
+    cityCoordUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + key;
+    await urlCall(cityCoordUrl);
+
+    StartingForecast();
 }
 
 function error(err)
@@ -207,47 +213,86 @@ citySearch.addEventListener("keypress", function(e){
     if (e.key == "Enter"){
         city = citySearch.value;
         CityNameAPI(city);  
+        UpdateButton(favorited);
+        favorited = CheckFavorite(startingCityName);
     }
 })
 
 searchButton.addEventListener("click",function(){
     city = citySearch.value;
     CityNameAPI(city);
+    UpdateButton(favorited);
+    favorited = CheckFavorite(startingCityName);
+    UpdateButton(favorited);
 })
 
-function CityNameAPI(city){
+faveButton.addEventListener("click", function(){
+    AddFavorite();
+    UpdateButton(favorited);
+})
+
+favoritesButton.addEventListener("click", function(){
+    ShowFavorites();
+})
+
+async function CityNameAPI(city){
     search = 0;
-    cityNameUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=365f138cea066f516791f6d7897e34d4&units=imperial";
+    cityNameUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + key;
     console.log(cityNameUrl);
-    urlCall(cityNameUrl);
+    await urlCall(cityNameUrl);
+    UpdateButton(favorited);
+    favorited = CheckFavorite(startingCityName);
+    UpdateButton(favorited);
 }
 
-function CityCoordAPI(lat, lon){
+async function StartingForecast()
+{
+    search = -2;
+    cityCoordUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + key;
+    console.log(cityCoordUrl);
+    await urlCall(cityCoordUrl);
+    UpdateButton(favorited);
+    favorited = CheckFavorite(startingCityName);
+    UpdateButton(favorited);
+}
+
+
+async function CityCoordAPI(lat, lon){
     search = 1;
-    cityCoordUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=365f138cea066f516791f6d7897e34d4&units=imperial";
+    cityCoordUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + key;
     fiveDays = 0;
-    urlCall(cityCoordUrl);
+    await urlCall(cityCoordUrl);
+    UpdateButton(favorited);
+    favorited = CheckFavorite(startingCityName);
+    UpdateButton(favorited);
 }
 
-function urlCall(url) {
-    fetch(url).then(
+async function urlCall(url) {
+    await fetch(url).then(
         response => response.json()
     ).then(
         data => {
             weather = data;
             
-            console.log(weather)
+            console.log(weather);
 
+
+            if (search == -2){
+                highTemp = (weather.main.temp_max);
+                lowTemp = weather.main.temp_min;
+                highTempToday.innerHTML = Math.floor(weather.main.temp_max) + "°";
+                lowTempToday.innerHTML = Math.floor(weather.main.temp_min) + "°";
+            }
+            
             if (search == -1){
-
-                console.log(weather.city.name);
+                
                 weatherCondition = city.name;
                 currentTemp.innerHTML = Math.floor(weather.list[0].main.temp) + "°";
-                console.log(weather.list[0].main.temp);
-                console.log(weather.list[0].weather[0].main);
                 currentWeatherCondition.innerHTML = weather.list[0].weather[0].main;
                 weatherCondition = weather.list[0].weather[0].main;
+                
                 cityName.innerHTML = weather.city.name;
+                startingCityName = weather.city.name;
 
                 search = 1;
                 // lat = weather.coord.lat;
@@ -256,21 +301,15 @@ function urlCall(url) {
 
             if (search == 0){
 
-                console.log(weather);
                 weatherCondition = weather.weather[0].main;
                 currentWeatherCondition.innerHTML = weather.weather[0].main;
                 cityName.innerHTML = weather.name;
                 currentTemp.innerHTML = Math.floor(weather.main.temp) + "°";
+                highTempToday.innerHTML = Math.floor(weather.main.temp_max) + "°";
+                lowTempToday.innerHTML = Math.floor(weather.main.temp_min) + "°";
                 lat = weather.coord.lat;
                 lon = weather.coord.lon;
-                console.log(weather);
-                console.log(weather.name);
-                console.log(weather.coord.lon);
-                console.log(weather.coord.lat);
-                console.log(weather.main.temp);
-                console.log(weather.weather[0].main);
-                
-                console.log(weatherCondition);
+                startingCityName = weather.name; 
             }
 
             if (search == 1){
@@ -351,6 +390,10 @@ function urlCall(url) {
                 currentWeatherIcon.src = "./Assets/fogIcon.png";
                 background.className = "container-fluid cloudBackground";
             break;
+            default:
+                currentWeatherIcon.src = "./Assets/cloudIcon.png";
+                background.className = "container-fluid cloudBackground";
+            break;
             }
 
             if (search == 0){
@@ -369,7 +412,6 @@ function ForecastIconSelector(){
         var forecastIcon = {forecastCondition1, forecastCondition2, forecastCondition3, forecastCondition4, forecastCondition5};
 
         forecastIcon[fiveDays - 1] = weather.list[8*fiveDays/2].weather[0].main;
-        console.log(forecastIcon[fiveDays - 1]);
 
         ForecastIcons(forecastIcon[fiveDays - 1], fiveDays)
 
@@ -395,6 +437,8 @@ function ForecastIcons(forecastCondition, fiveDays){
         break;
         case "Haze": weatherForecastIcon1.src = "./Assets/fogIcon.png";
         break;
+        default: weatherForecastIcon1.src = "./Assets/cloudIcon.png";
+        break;
         }
     }
 
@@ -410,6 +454,8 @@ function ForecastIcons(forecastCondition, fiveDays){
         case "Rain": weatherForecastIcon2.src = "./Assets/rainCloudIcon.png";
         break;
         case "Haze": weatherForecastIcon2.src = "./Assets/fogIcon.png";
+        break;
+        default: weatherForecastIcon2.src = "./Assets/cloudIcon.png";
         break;
         }
     }
@@ -427,6 +473,8 @@ function ForecastIcons(forecastCondition, fiveDays){
         break;
         case "Haze": weatherForecastIcon3.src = "./Assets/fogIcon.png";
         break;
+        default: weatherForecastIcon3.src = "./Assets/cloudIcon.png";
+        break;
         }
     }
 
@@ -442,6 +490,8 @@ function ForecastIcons(forecastCondition, fiveDays){
         case "Rain": weatherForecastIcon4.src = "./Assets/rainCloudIcon.png";
         break;
         case "Haze": weatherForecastIcon4.src = "./Assets/fogIcon.png";
+        break;
+        default: weatherForecastIcon4.src = "./Assets/cloudIcon.png";
         break;
         }
     }
@@ -459,7 +509,61 @@ function ForecastIcons(forecastCondition, fiveDays){
         break;
         case "Haze": weatherForecastIcon5.src = "./Assets/fogIcon.png";
         break;
+        default: weatherForecastIcon5.src = "./Assets/cloudIcon.png";
+        break;
         }
     }
 
 }
+
+function UpdateButton(){
+    console.log("UpdateButton Function")
+    if (!favorited){
+        favoriteText.innerHTML = "Remove City from Favorites"
+        console.log("Remove Button")
+    }
+    if (favorited)
+    {
+        favoriteText.innerHTML = "Add City to Favorites"
+        console.log("Add Button")
+    }
+}
+
+function AddFavorite(){
+    console.log(startingCityName);
+    removal = saveToLocalStorageByName(startingCityName);
+    favorited = removal;
+    console.log(removal);
+}
+
+function ShowFavorites(){
+    let favorites = GetFavorites();
+    console.log(favoritesShown);
+    // if (favoritesShown <= 1){
+
+    //     injectHere.removeChild(h5);
+    //     injectHere.removeChild(selectBtn);
+    // }
+
+        favorites.map(favorite => {
+            let h5 = document.createElement('h3');
+            h5.textContent = favorite;
+            h5.className = "favoritesList";
+
+        let selectBtn = document.createElement('button');
+        selectBtn.className = 'btn btn-outline-danger selectBtn';
+        selectBtn.type = 'button';
+        selectBtn.addEventListener('click', function(){
+            city = favorite;
+            CityNameAPI(city);
+            UpdateButton(favorited);
+            favorited = CheckFavorite(startingCityName);
+            UpdateButton(favorited);
+        })
+
+        injectHere.appendChild(h5);
+        injectHere.appendChild(selectBtn);
+    })
+    favoritesShown++;
+}
+
